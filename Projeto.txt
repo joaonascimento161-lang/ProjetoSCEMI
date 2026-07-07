@@ -1,0 +1,121 @@
+Situação de Aprendizagem – Sistema de Controle de Equipamentos e Manutenções Industriais
+Contextualização
+
+Você faz parte da equipe de desenvolvimento de uma empresa de médio porte do setor industrial, especializada na fabricação de equipamentos eletroeletrônicos e soluções tecnológicas para a indústria.
+A empresa possui diversos equipamentos distribuídos entre seus setores produtivos, como computadores industriais, impressoras, sensores, controladores e outros dispositivos responsáveis pelo funcionamento da produção. Atualmente, o controle dessas informações é realizado por meio de planilhas eletrônicas e registros manuais, dificultando a organização dos dados, a localização de informações e o acompanhamento das manutenções realizadas.
+Além disso, o setor de manutenção enfrenta problemas como registros duplicados, perda de informações, dificuldade para identificar equipamentos que estão em manutenção e ausência de um histórico organizado das ocorrências.
+Diante desse cenário, a direção da empresa solicitou o desenvolvimento de um sistema computacional capaz de centralizar essas informações, automatizando o cadastro dos equipamentos, dos técnicos responsáveis e das manutenções realizadas.
+A solução deverá ser desenvolvida em Java, aplicando os princípios da Programação Orientada a Objetos, tratamento de exceções e boas práticas de desenvolvimento, garantindo um código organizado, legível e de fácil manutenção.
+Desafio
+
+Desenvolver um sistema em Java para gerenciamento de equipamentos industriais e controle de manutenções.
+O sistema deverá permitir o cadastro, consulta, alteração e exclusão das informações, além de registrar as manutenções realizadas nos equipamentos.
+Todo o desenvolvimento deverá seguir os conceitos estudados durante a disciplina, utilizando programação orientada a objetos, modularização do código, tratamento de exceções e estruturas de dados adequadas.
+Requisitos Funcionais
+
+Módulo 1 – Gerenciamento de Equipamentos
+O sistema deverá permitir o gerenciamento dos equipamentos utilizados na empresa.
+Cada equipamento deverá possuir, no mínimo, os seguintes dados:
+
+● Código;
+● Nome;
+● Categoria;
+● Fabricante;
+● Modelo;
+● Setor onde está instalado;
+● Data de instalação;
+● Status (Operando, Em manutenção ou Inativo).
+
+O sistema deverá permitir as seguintes operações:
+● Cadastrar equipamento;
+● Consultar equipamento pelo código;
+● Alterar informações;
+● Excluir equipamento;
+● Listar todos os equipamentos cadastrados.
+
+Módulo 2 – Gerenciamento de Técnicos
+O sistema deverá permitir cadastrar os técnicos responsáveis pelas manutenções.
+Cada técnico deverá possuir:
+
+● Código;
+● Nome;
+● Matrícula;
+● Setor;
+● Telefone.
+O sistema deverá permitir:
+● Cadastrar técnico;
+● Consultar técnico;
+● Alterar informações;
+● Excluir técnico;
+● Listar todos os técnicos cadastrados.
+
+Módulo 3 – Controle de Manutenções
+O sistema deverá permitir registrar todas as manutenções realizadas nos equipamentos.
+Cada manutenção deverá conter:
+
+● Código da manutenção;
+● Equipamento relacionado;
+● Técnico responsável;
+● Data de abertura;
+● Data de encerramento;
+● Tipo da manutenção (Preventiva ou Corretiva);
+● Descrição do problema;
+● Situação (Aberta, Em andamento ou Finalizada).
+O sistema deverá permitir:
+● Registrar nova manutenção;
+● Consultar manutenção;
+● Alterar situação da manutenção;
+● Finalizar manutenção;
+● Listar todas as manutenções cadastradas.
+
+Módulo 4 – Relatórios
+O sistema deverá disponibilizar, no mínimo, os seguintes relatórios:
+● Quantidade total de equipamentos cadastrados;
+● Quantidade total de técnicos cadastrados;
+● Equipamentos em manutenção;
+● Equipamentos ativos;
+● Equipamentos inativos;
+● Quantidade de manutenções abertas;
+● Quantidade de manutenções finalizadas;
+● Quantidade de manutenções por equipamento.
+
+Regras de Negócio
+O sistema deverá respeitar as seguintes regras:
+
+1. O código do equipamento deverá ser único.
+2. A matrícula do técnico deverá ser única.
+3. Não será permitido cadastrar equipamentos com campos obrigatórios vazios.
+4. Não será permitido cadastrar técnicos com campos obrigatórios vazios.
+5. Não será permitido cadastrar uma manutenção para um equipamento inexistente.
+6. Não será permitido cadastrar uma manutenção para um técnico inexistente.
+7. Um equipamento que possuir uma manutenção aberta não poderá receber uma nova manutenção até que a anterior seja finalizada.
+8. Não será permitido excluir um equipamento que possua manutenção em aberto.
+9. Não será permitido excluir um técnico responsável por uma manutenção em aberto.
+10. Uma manutenção somente poderá ser finalizada uma única vez.
+11. Ao finalizar uma manutenção, a data de encerramento deverá ser registrada automaticamente.
+12. Sempre que uma manutenção for aberta, o status do equipamento deverá ser alterado para Em manutenção.
+13. Após a finalização da manutenção, o status do equipamento deverá voltar para Operando.
+
+Requisitos Técnicos
+Estruturas de Dados
+O armazenamento das informações deverá ser realizado utilizando ArrayList.
+Poderão ser utilizados métodos como:
+
+● add()
+● get()
+● set()
+● remove()
+● size()
+
+Tratamento de Exceções
+O sistema deverá utilizar:
+
+● try-catch;
+● throw;
+● throws;
+● Pelo menos uma exceção personalizada criada pelo aluno.
+
+Exemplos:
+
+● EquipamentoNaoEncontradoException;
+● CodigoDuplicadoException;
