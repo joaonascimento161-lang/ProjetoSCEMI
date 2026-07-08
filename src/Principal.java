@@ -1,19 +1,24 @@
 import service.EquipamentoService;
 import service.TecnicoService;
 import service.ManutencaoService;
+import service.RelatorioService;
 import exception.CodigoDuplicadoException;
+import exception.EquipamentoNaoEncontradoException;
+import exception.TecnicoNaoEncontradoException;
+import exception.ManutencaoInvalidaException;
+import util.Entrada;
 import java.util.Scanner;
 
 public class Principal {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Entrada.sc;
 
         EquipamentoService equipamentoService = new EquipamentoService();
         TecnicoService tecnicoService = new TecnicoService();
         ManutencaoService manutencaoService = new ManutencaoService(equipamentoService, tecnicoService);
+        RelatorioService relatorioService = new RelatorioService(equipamentoService, tecnicoService, manutencaoService);
 
-        // Injeta a ManutencaoService nas outras duas, pra validar as regras 8 e 9
         equipamentoService.setManutencaoService(manutencaoService);
         tecnicoService.setManutencaoService(manutencaoService);
 
@@ -48,7 +53,7 @@ public class Principal {
                     menuManutencoes(sc, manutencaoService);
                     break;
                 case 4:
-                    System.out.println("Relatórios em desenvolvimento...");
+                    menuRelatorios(sc, relatorioService);
                     break;
                 case 0:
                     System.out.println("Encerrando o sistema...");
@@ -73,33 +78,33 @@ public class Principal {
         System.out.print("Escolha uma opção: ");
         int sub = Integer.parseInt(sc.nextLine());
 
-        switch (sub) {
-            case 1:
-                try {
+        try {
+            switch (sub) {
+                case 1:
                     equipamentoService.cadastrar();
-                } catch (CodigoDuplicadoException e) {
-                    System.out.println("Erro: " + e.getMessage());
-                }
-                break;
-            case 2:
-                System.out.print("Código: ");
-                equipamentoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                equipamentoService.alterar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                equipamentoService.excluir(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                equipamentoService.listar();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opção inválida.");
+                    break;
+                case 2:
+                    System.out.print("Código: ");
+                    equipamentoService.consultar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 3:
+                    System.out.print("Código: ");
+                    equipamentoService.alterar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 4:
+                    System.out.print("Código: ");
+                    equipamentoService.excluir(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 5:
+                    equipamentoService.listar();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } catch (CodigoDuplicadoException | EquipamentoNaoEncontradoException | ManutencaoInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
@@ -116,29 +121,33 @@ public class Principal {
         System.out.print("Escolha: ");
         int sub = Integer.parseInt(sc.nextLine());
 
-        switch (sub) {
-            case 1:
-                tecnicoService.cadastrar();
-                break;
-            case 2:
-                System.out.print("Código: ");
-                tecnicoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                tecnicoService.alterar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                tecnicoService.excluir(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                tecnicoService.listar();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opção inválida.");
+        try {
+            switch (sub) {
+                case 1:
+                    tecnicoService.cadastrar();
+                    break;
+                case 2:
+                    System.out.print("Código: ");
+                    tecnicoService.consultar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 3:
+                    System.out.print("Código: ");
+                    tecnicoService.alterar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 4:
+                    System.out.print("Código: ");
+                    tecnicoService.excluir(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 5:
+                    tecnicoService.listar();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } catch (TecnicoNaoEncontradoException | ManutencaoInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
@@ -155,24 +164,54 @@ public class Principal {
         System.out.print("Escolha uma opção: ");
         int sub = Integer.parseInt(sc.nextLine());
 
+        try {
+            switch (sub) {
+                case 1:
+                    manutencaoService.registrar();
+                    break;
+                case 2:
+                    System.out.print("Código: ");
+                    manutencaoService.consultar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 3:
+                    System.out.print("Código: ");
+                    manutencaoService.alterarSituacao(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 4:
+                    System.out.print("Código: ");
+                    manutencaoService.finalizar(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 5:
+                    manutencaoService.listar();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } catch (ManutencaoInvalidaException | EquipamentoNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
+    private static void menuRelatorios(Scanner sc, RelatorioService relatorioService) {
+        System.out.println("==============================================");
+        System.out.println("                RELATÓRIOS");
+        System.out.println("==============================================");
+        System.out.println("1 - Relatório geral");
+        System.out.println("2 - Manutenções por equipamento");
+        System.out.println("0 - Voltar ao menu principal");
+        System.out.print("Escolha uma opção: ");
+        int sub = Integer.parseInt(sc.nextLine());
+
         switch (sub) {
             case 1:
-                manutencaoService.registrar();
+                relatorioService.exibirRelatorioGeral();
                 break;
             case 2:
-                System.out.print("Código: ");
-                manutencaoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                manutencaoService.alterarSituacao(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                manutencaoService.finalizar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                manutencaoService.listar();
+                System.out.print("Código do equipamento: ");
+                int codigo = Integer.parseInt(sc.nextLine());
+                relatorioService.exibirManutencoesPorEquipamento(codigo);
                 break;
             case 0:
                 break;

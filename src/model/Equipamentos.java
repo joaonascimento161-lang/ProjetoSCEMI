@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 import exception.CodigoDuplicadoException;
+import static util.Entrada.sc;
 
 public class Equipamentos {
     private int codigo;
@@ -13,10 +11,11 @@ public class Equipamentos {
     private String modelo;
     private String setor;
     private String data;
-    private boolean status;
+    private String status;
 
-    private static final Scanner sc = new Scanner(System.in);
-    private static List<Integer> codigosRegistrados = new ArrayList<>();
+    public static final String OPERANDO = "Operando";
+    public static final String EM_MANUTENCAO = "Em manutenção";
+    public static final String INATIVO = "Inativo";
 
     public Equipamentos(int codigo, String nome, String categoria, String fabricante, String modelo, String setor, String data) {
         this.codigo = codigo;
@@ -26,7 +25,7 @@ public class Equipamentos {
         this.modelo = modelo;
         this.setor = setor;
         this.data = data;
-        this.status = true; // Por padrão, nasce ativo
+        this.status = OPERANDO;
     }
 
     public int getCodigo() { return codigo; }
@@ -50,8 +49,26 @@ public class Equipamentos {
     public String getData() { return data; }
     public void setData(String data) { this.data = data; }
 
-    public boolean isStatus() { return status; }
-    public void setStatus(boolean status) { this.status = status; }
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) {
+        if (!status.equals(OPERANDO) && !status.equals(EM_MANUTENCAO) && !status.equals(INATIVO)) {
+            throw new IllegalArgumentException("Status inválido: " + status);
+        }
+        this.status = status;
+    }
+
+    private static String lerCampoObrigatorio(String mensagem) {
+        String valor;
+        do {
+            System.out.print(mensagem);
+            valor = sc.nextLine().trim();
+            if (valor.isEmpty()) {
+                System.out.println("Este campo não pode ficar vazio.");
+            }
+        } while (valor.isEmpty());
+        return valor;
+    }
 
     public static Equipamentos cadastrarEquipamento(Equipamentos[] equipamentos) throws CodigoDuplicadoException {
         int codigoDigitado = 0;
@@ -67,46 +84,37 @@ public class Equipamentos {
             }
             try {
                 codigoDigitado = Integer.parseInt(line);
-                if (codigosRegistrados.contains(codigoDigitado)) {
-                    throw new CodigoDuplicadoException("Erro: O código " + codigoDigitado + " já está cadastrado!");
+
+                for (Equipamentos e : equipamentos) {
+                    if (e != null && e.getCodigo() == codigoDigitado) {
+                        throw new CodigoDuplicadoException("Erro: O código " + codigoDigitado + " já está cadastrado!");
+                    }
                 }
-                codigosRegistrados.add(codigoDigitado);
                 break;
             } catch (NumberFormatException ex) {
                 System.out.print("Entrada inválida! Digite um número inteiro para o código: ");
             }
         }
 
-        System.out.print("Digite o nome: ");
-        String nome = sc.nextLine().trim();
-
-        System.out.print("Digite a categoria: ");
-        String categoria = sc.nextLine().trim();
-
-        System.out.print("Digite o fabricante: ");
-        String fabricante = sc.nextLine().trim();
-
-        System.out.print("Digite o modelo: ");
-        String modelo = sc.nextLine().trim();
-
-        System.out.print("Digite o setor: ");
-        String setor = sc.nextLine().trim();
-
-        System.out.print("Digite a data (dd/mm/aaaa): ");
-        String data = sc.nextLine().trim();
+        String nome = lerCampoObrigatorio("Digite o nome: ");
+        String categoria = lerCampoObrigatorio("Digite a categoria: ");
+        String fabricante = lerCampoObrigatorio("Digite o fabricante: ");
+        String modelo = lerCampoObrigatorio("Digite o modelo: ");
+        String setor = lerCampoObrigatorio("Digite o setor: ");
+        String data = lerCampoObrigatorio("Digite a data (dd/mm/aaaa): ");
 
         return new Equipamentos(codigoDigitado, nome, categoria, fabricante, modelo, setor, data);
     }
 
-    public void ConsultarEquipamento() {
-        if(codigo == this.codigo) {
+    public void consultarEquipamento(int codigoConsultado) {
+        if (codigoConsultado == this.codigo) {
             System.out.println("\n--- CONSULTA DE EQUIPAMENTO (Código: " + this.codigo + ") ---");
             exibirInformacoes();
         }
     }
 
     public void exibirInformacoes() {
-        if (!this.status) {
+        if (this.status.equals(INATIVO)) {
             System.out.println("Equipamento [Código: " + this.codigo + "] está marcado como EXCLUÍDO.");
             return;
         }
@@ -118,7 +126,7 @@ public class Equipamentos {
         System.out.println("Modelo:     " + this.modelo);
         System.out.println("Setor:      " + this.setor);
         System.out.println("Data:       " + this.data);
-        System.out.println("Status:     Ativo");
+        System.out.println("Status:     " + this.status);
     }
 
     public void alterarInformacoes() {
@@ -136,28 +144,22 @@ public class Equipamentos {
             int opcao = Integer.parseInt(sc.nextLine());
             switch (opcao) {
                 case 1:
-                    System.out.print("Novo nome: ");
-                    this.nome = sc.nextLine().trim();
+                    this.nome = lerCampoObrigatorio("Novo nome: ");
                     break;
                 case 2:
-                    System.out.print("Nova categoria: ");
-                    this.categoria = sc.nextLine().trim();
+                    this.categoria = lerCampoObrigatorio("Nova categoria: ");
                     break;
                 case 3:
-                    System.out.print("Novo fabricante: ");
-                    this.fabricante = sc.nextLine().trim();
+                    this.fabricante = lerCampoObrigatorio("Novo fabricante: ");
                     break;
                 case 4:
-                    System.out.print("Novo modelo: ");
-                    this.modelo = sc.nextLine().trim();
+                    this.modelo = lerCampoObrigatorio("Novo modelo: ");
                     break;
                 case 5:
-                    System.out.print("Novo setor: ");
-                    this.setor = sc.nextLine().trim();
+                    this.setor = lerCampoObrigatorio("Novo setor: ");
                     break;
                 case 6:
-                    System.out.print("Nova data: ");
-                    this.data = sc.nextLine().trim();
+                    this.data = lerCampoObrigatorio("Nova data: ");
                     break;
                 case 0:
                     return;
@@ -172,7 +174,7 @@ public class Equipamentos {
     }
 
     public void excluir() {
-        this.status = false;
+        this.status = INATIVO;
         System.out.println("Equipamento código " + this.codigo + " excluído com sucesso!");
     }
 }

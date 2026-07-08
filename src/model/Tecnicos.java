@@ -1,8 +1,6 @@
 package model;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import static util.Entrada.sc;
 
 public class Tecnicos {
     private int codigo;
@@ -11,9 +9,6 @@ public class Tecnicos {
     private String setor;
     private String telefone;
     private boolean status;
-
-    private static final Scanner sc = new Scanner(System.in);
-    private static List<Integer> codigosRegistrados = new ArrayList<>();
 
     public Tecnicos(int codigo, String nome, String matricula, String setor, String telefone) {
         this.codigo = codigo;
@@ -24,37 +19,73 @@ public class Tecnicos {
         this.status = true;
     }
 
-    // Getters e Setters
     public int getCodigo() { return codigo; }
     public String getNome() { return nome; }
+    public String getMatricula() { return matricula; }
+    public String getSetor() { return setor; }
+    public String getTelefone() { return telefone; }
+    public boolean isStatus() { return status; }
     public void setStatus(boolean status) { this.status = status; }
 
-    public static Tecnicos cadastrarTecnico() {
+    private static String lerCampoObrigatorio(String mensagem) {
+        String valor;
+        do {
+            System.out.print(mensagem);
+            valor = sc.nextLine().trim();
+            if (valor.isEmpty()) {
+                System.out.println("Este campo não pode ficar vazio.");
+            }
+        } while (valor.isEmpty());
+        return valor;
+    }
+
+    public static Tecnicos cadastrarTecnico(Tecnicos[] tecnicos) {
         int cod = 0;
         System.out.println("\n--- CADASTRO DE TÉCNICO ---");
         System.out.print("Código: ");
         while (true) {
             try {
                 cod = Integer.parseInt(sc.nextLine());
-                if (codigosRegistrados.contains(cod)) {
+                final int codigoFinal = cod;
+                boolean codigoDuplicado = false;
+                for (Tecnicos t : tecnicos) {
+                    if (t != null && t.getCodigo() == codigoFinal) {
+                        codigoDuplicado = true;
+                        break;
+                    }
+                }
+                if (codigoDuplicado) {
                     System.out.print("Erro: Código já existe. Digite outro: ");
                     continue;
                 }
-                codigosRegistrados.add(cod);
                 break;
             } catch (NumberFormatException e) {
                 System.out.print("Digite um número válido para o código: ");
             }
         }
 
-        System.out.print("Nome: ");
-        String nome = sc.nextLine();
-        System.out.print("Matrícula: ");
-        String matricula = sc.nextLine();
-        System.out.print("Setor: ");
-        String setor = sc.nextLine();
-        System.out.print("Telefone: ");
-        String telefone = sc.nextLine();
+        String nome = lerCampoObrigatorio("Nome: ");
+
+        String matricula;
+        while (true) {
+            matricula = lerCampoObrigatorio("Matrícula: ");
+            final String matriculaFinal = matricula;
+            boolean matriculaDuplicada = false;
+            for (Tecnicos t : tecnicos) {
+                if (t != null && t.getMatricula().equalsIgnoreCase(matriculaFinal)) {
+                    matriculaDuplicada = true;
+                    break;
+                }
+            }
+            if (matriculaDuplicada) {
+                System.out.println("Erro: Matrícula já cadastrada para outro técnico.");
+                continue;
+            }
+            break;
+        }
+
+        String setor = lerCampoObrigatorio("Setor: ");
+        String telefone = lerCampoObrigatorio("Telefone: ");
 
         return new Tecnicos(cod, nome, matricula, setor, telefone);
     }
@@ -84,14 +115,15 @@ public class Tecnicos {
         try {
             int op = Integer.parseInt(sc.nextLine());
             switch (op) {
-                case 1: System.out.print("Novo Nome: "); this.nome = sc.nextLine(); break;
-                case 2: System.out.print("Nova Matrícula: "); this.matricula = sc.nextLine(); break;
-                case 3: System.out.print("Novo Setor: "); this.setor = sc.nextLine(); break;
-                case 4: System.out.print("Novo Telefone: "); this.telefone = sc.nextLine(); break;
+                case 1: this.nome = lerCampoObrigatorio("Novo Nome: "); break;
+                case 2: this.matricula = lerCampoObrigatorio("Nova Matrícula: "); break;
+                case 3: this.setor = lerCampoObrigatorio("Novo Setor: "); break;
+                case 4: this.telefone = lerCampoObrigatorio("Novo Telefone: "); break;
                 case 0: return;
+                default: System.out.println("Opção inválida."); return;
             }
             System.out.println("Alterado com sucesso!");
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("Erro na entrada.");
         }
     }
