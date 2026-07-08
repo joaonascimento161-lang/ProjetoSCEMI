@@ -40,12 +40,13 @@ Listar todas as manutenções
 Relatório geral: totais de equipamentos, técnicos, manutenções abertas/finalizadas e equipamentos por status
 Manutenções registradas por equipamento específico
 
+---
 
 ## Arquitetura
 
 O projeto segue uma separação em camadas:
 
-´´´text
+```text
 src/
 ├── Principal.java              # Menu principal e navegação (console)
 ├── model/                      # Entidades e regras próprias de cada uma
@@ -65,17 +66,16 @@ src/
 │   └── ManutencaoInvalidaException.java
 └── util/
     └── Entrada.java             # Scanner único e compartilhado do sistema
-´´´
-Destaques de design:
-
+```
+## Destaques de design:
 
 Entrada.sc centraliza um único Scanner estático para evitar conflitos de buffer de entrada entre as classes.
 ManutencaoService é injetado em EquipamentoService e TecnicoService para impedir exclusões que quebrariam a integridade dos dados (equipamento/técnico com manutenção em aberto).
 Armazenamento em memória via arrays de tamanho fixo (100 posições por entidade), sem uso de banco de dados.
 
+---
 
 Tecnologias
-
 
 Java (sem dependências externas)
 Estrutura de projeto compatível com IntelliJ IDEA
@@ -100,7 +100,7 @@ java -cp ../out Principal
 Uso
 
 Ao rodar o programa, um menu interativo é exibido no console:
-
+```text
 ==============================================
 SISTEMA DE CONTROLE DE EQUIPAMENTOS
 ==============================================
@@ -109,7 +109,7 @@ SISTEMA DE CONTROLE DE EQUIPAMENTOS
 3 - Manutenções
 4 - Relatórios
 0 - Encerrar sistema
-
+```
 Basta digitar o número da opção desejada e seguir as instruções exibidas.
 
 Regras de negócio implementadas
