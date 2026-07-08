@@ -83,7 +83,7 @@ Armazenamento em memória via arrays de tamanho fixo (100 posições por entidad
 ---
 
 ## ⁉️ Como executar
-```code
+```
 Via IntelliJ IDEA
 
 Abra a pasta do projeto na IDE.
