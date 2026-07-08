@@ -1,4 +1,4 @@
-# Sistema de Controle de Equipamentos (SCEMI)
+# 🔧 Sistema de Controle de Equipamentos (SCEMI)
 
 Aplicação console em Java para gestão de equipamentos industriais, técnicos responsáveis e ordens de manutenção. O projeto foi desenvolvido com arquitetura em camadas (model / service / exception / util), aplicando conceitos de POO, tratamento de exceções personalizadas e regras de negócio entre entidades relacionadas.
 
@@ -6,43 +6,43 @@ Aplicação console em Java para gestão de equipamentos industriais, técnicos 
 
 ## Funcionalidades
 
- ### Equipamentos
-- Cadastrar equipamento (com validação de código duplicado)
-- Consultar equipamento por código
-- Alterar informações (nome, categoria, fabricante, modelo, setor, data)
-- Excluir equipamento (exclusão lógica — bloqueada se houver manutenção em aberto)
-- Listar todos os equipamentos
-- Status automático: Operando, Em manutenção, Inativo
+ ### 🛠️ Equipamentos
+* Cadastrar equipamento (com validação de código duplicado)
+* Consultar equipamento por código
+* Alterar informações (nome, categoria, fabricante, modelo, setor, data)
+* Excluir equipamento (exclusão lógica — bloqueada se houver manutenção em aberto)
+* Listar todos os equipamentos
+* Status automático: Operando, Em manutenção, Inativo
 
 ---
 
-### Técnicos
-Cadastrar técnico (com validação de código e matrícula duplicados)
-Consultar técnico por código
-Alterar informações (nome, matrícula, setor, telefone)
-Excluir técnico (exclusão lógica — bloqueada se houver manutenção em aberto sob sua responsabilidade)
-Listar todos os técnicos
+### 👨‍🔧 Técnicos
+* Cadastrar técnico (com validação de código e matrícula duplicados)
+* Consultar técnico por código
+* Alterar informações (nome, matrícula, setor, telefone)
+* Excluir técnico (exclusão lógica — bloqueada se houver manutenção em aberto sob sua responsabilidade)
+* Listar todos os técnicos
 
 ---
 
-### Manutenções
-Registrar manutenção vinculando um equipamento e um técnico existentes
-Impede abrir uma nova manutenção para um equipamento que já tem uma em aberto
-Consultar manutenção por código
-Alterar situação (Aberta, Em andamento, Finalizada)
-Finalizar manutenção com data de encerramento
-Ao finalizar, o equipamento volta automaticamente ao status Operando
-Listar todas as manutenções
+### 🪛 Manutenções
+* Registrar manutenção vinculando um equipamento e um técnico existentes
+* Impede abrir uma nova manutenção para um equipamento que já tem uma em aberto
+* Consultar manutenção por código
+* Alterar situação (Aberta, Em andamento, Finalizada)
+* Finalizar manutenção com data de encerramento
+* Ao finalizar, o equipamento volta automaticamente ao status Operando
+* Listar todas as manutenções
 
 ---
 
-### Relatórios
-Relatório geral: totais de equipamentos, técnicos, manutenções abertas/finalizadas e equipamentos por status
-Manutenções registradas por equipamento específico
+### 📊 Relatórios
+* Relatório geral: totais de equipamentos, técnicos, manutenções abertas/finalizadas e equipamentos por status
+* Manutenções registradas por equipamento específico
 
 ---
 
-## Arquitetura
+## 🗃️ Arquitetura
 
 O projeto segue uma separação em camadas:
 
@@ -67,7 +67,7 @@ src/
 └── util/
     └── Entrada.java             # Scanner único e compartilhado do sistema
 ```
-## Destaques de design:
+## ‼️ Destaques de design:
 
 Entrada.sc centraliza um único Scanner estático para evitar conflitos de buffer de entrada entre as classes.
 ManutencaoService é injetado em EquipamentoService e TecnicoService para impedir exclusões que quebrariam a integridade dos dados (equipamento/técnico com manutenção em aberto).
@@ -75,29 +75,32 @@ Armazenamento em memória via arrays de tamanho fixo (100 posições por entidad
 
 ---
 
-Tecnologias
+## 💡 Tecnologias
 
-Java (sem dependências externas)
-Estrutura de projeto compatível com IntelliJ IDEA
+* Java (sem dependências externas)
+* Estrutura de projeto compatível com IntelliJ IDEA
 
+---
 
-Como executar
+## ⁉️ Como executar
 
 Via IntelliJ IDEA
 
-
 Abra a pasta do projeto na IDE.
+            ↓
 Execute a classe Principal.java.
-
-
+            ↓
 Via linha de comando
-
+            ↓
 bash# Na raiz do projeto
+```code
 cd src
 javac -d ../out Principal.java model/*.java service/*.java exception/*.java util/*.java
 java -cp ../out Principal
+```
+---
 
-Uso
+## ✅ Uso
 
 Ao rodar o programa, um menu interativo é exibido no console:
 ```text
@@ -112,8 +115,9 @@ SISTEMA DE CONTROLE DE EQUIPAMENTOS
 ```
 Basta digitar o número da opção desejada e seguir as instruções exibidas.
 
-Regras de negócio implementadas
+---
 
+## 🚫 Regras de negócio implementadas
 
 Não é possível cadastrar dois equipamentos com o mesmo código, nem dois técnicos com o mesmo código ou matrícula.
 Uma manutenção só pode ser registrada para equipamentos e técnicos já cadastrados.
@@ -121,10 +125,11 @@ Um equipamento não pode ter duas manutenções em aberto simultaneamente.
 Equipamentos e técnicos vinculados a manutenções em aberto não podem ser excluídos.
 Uma manutenção finalizada não pode ter sua situação alterada novamente.
 
+---
 
-Status do projeto
+## ✍️ Status do projeto
 
-🚧 Em desenvolvimento — próximos passos incluem expandir os relatórios e possivelmente persistir os dados em arquivo ou banco de dados.
+🚧 Em testes — Verificando todas as funcionalidades para evitar bugs do Projeto.
 
 Autor
 
