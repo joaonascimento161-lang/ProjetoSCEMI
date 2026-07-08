@@ -83,7 +83,7 @@ Armazenamento em memória via arrays de tamanho fixo (100 posições por entidad
 ---
 
 ## ⁉️ Como executar
-
+```code
 Via IntelliJ IDEA
 
 Abra a pasta do projeto na IDE.
@@ -93,7 +93,7 @@ Execute a classe Principal.java.
 Via linha de comando
             ↓
 bash# Na raiz do projeto
-```code
+
 cd src
 javac -d ../out Principal.java model/*.java service/*.java exception/*.java util/*.java
 java -cp ../out Principal
