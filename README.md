@@ -7,12 +7,12 @@ Aplicação console em Java para gestão de equipamentos industriais, técnicos 
 ## Funcionalidades
 
  ### Equipamentos
-Cadastrar equipamento (com validação de código duplicado)
-Consultar equipamento por código
-Alterar informações (nome, categoria, fabricante, modelo, setor, data)
-Excluir equipamento (exclusão lógica — bloqueada se houver manutenção em aberto)
-Listar todos os equipamentos
-Status automático: Operando, Em manutenção, Inativo
+- Cadastrar equipamento (com validação de código duplicado)
+- Consultar equipamento por código
+- Alterar informações (nome, categoria, fabricante, modelo, setor, data)
+- Excluir equipamento (exclusão lógica — bloqueada se houver manutenção em aberto)
+- Listar todos os equipamentos
+- Status automático: Operando, Em manutenção, Inativo
 
 ---
 
@@ -44,7 +44,8 @@ Manutenções registradas por equipamento específico
 ## Arquitetura
 
 O projeto segue uma separação em camadas:
-´´´
+
+´´´text
 src/
 ├── Principal.java              # Menu principal e navegação (console)
 ├── model/                      # Entidades e regras próprias de cada uma
