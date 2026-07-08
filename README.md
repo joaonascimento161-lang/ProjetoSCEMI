@@ -98,6 +98,7 @@ cd src
 javac -d ../out Principal.java model/*.java service/*.java exception/*.java util/*.java
 java -cp ../out Principal
 ```
+Ou pela interface do Intellij, usando o botão de "Run".
 ---
 
 ## ✅ Uso
