@@ -1,12 +1,12 @@
-Sistema de Controle de Equipamentos (SCEMI)
+# Sistema de Controle de Equipamentos (SCEMI)
 
 Aplicação console em Java para gestão de equipamentos industriais, técnicos responsáveis e ordens de manutenção. O projeto foi desenvolvido com arquitetura em camadas (model / service / exception / util), aplicando conceitos de POO, tratamento de exceções personalizadas e regras de negócio entre entidades relacionadas.
 
-Funcionalidades
+---
 
-Equipamentos
+## Funcionalidades
 
-
+ ### Equipamentos
 Cadastrar equipamento (com validação de código duplicado)
 Consultar equipamento por código
 Alterar informações (nome, categoria, fabricante, modelo, setor, data)
@@ -14,20 +14,18 @@ Excluir equipamento (exclusão lógica — bloqueada se houver manutenção em a
 Listar todos os equipamentos
 Status automático: Operando, Em manutenção, Inativo
 
+---
 
-Técnicos
-
-
+### Técnicos
 Cadastrar técnico (com validação de código e matrícula duplicados)
 Consultar técnico por código
 Alterar informações (nome, matrícula, setor, telefone)
 Excluir técnico (exclusão lógica — bloqueada se houver manutenção em aberto sob sua responsabilidade)
 Listar todos os técnicos
 
+---
 
-Manutenções
-
-
+### Manutenções
 Registrar manutenção vinculando um equipamento e um técnico existentes
 Impede abrir uma nova manutenção para um equipamento que já tem uma em aberto
 Consultar manutenção por código
@@ -36,18 +34,17 @@ Finalizar manutenção com data de encerramento
 Ao finalizar, o equipamento volta automaticamente ao status Operando
 Listar todas as manutenções
 
+---
 
-Relatórios
-
-
+### Relatórios
 Relatório geral: totais de equipamentos, técnicos, manutenções abertas/finalizadas e equipamentos por status
 Manutenções registradas por equipamento específico
 
 
-Arquitetura
+## Arquitetura
 
 O projeto segue uma separação em camadas:
-
+´´´
 src/
 ├── Principal.java              # Menu principal e navegação (console)
 ├── model/                      # Entidades e regras próprias de cada uma
@@ -67,7 +64,7 @@ src/
 │   └── ManutencaoInvalidaException.java
 └── util/
     └── Entrada.java             # Scanner único e compartilhado do sistema
-
+´´´
 Destaques de design:
 
 
