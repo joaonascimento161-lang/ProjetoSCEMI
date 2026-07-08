@@ -1,4 +1,4 @@
-# 🔧 Sistema de Controle de Equipamentos (SCEMI)
+# 🔧 Sistema de Controle de Equipamentos e Manutenções Industriais (SCEMI)
 
 Aplicação console em Java para gestão de equipamentos industriais, técnicos responsáveis e ordens de manutenção. O projeto foi desenvolvido com arquitetura em camadas (model / service / exception / util), aplicando conceitos de POO, tratamento de exceções personalizadas e regras de negócio entre entidades relacionadas.
 
