@@ -101,7 +101,7 @@ public class Equipamentos {
         String fabricante = lerCampoObrigatorio("Digite o fabricante: ");
         String modelo = lerCampoObrigatorio("Digite o modelo: ");
         String setor = lerCampoObrigatorio("Digite o setor: ");
-        String data = lerCampoObrigatorio("Digite a data (dd/mm/aaaa): ");
+        String data = lerCampoObrigatorio("Digite a data da instalação/aquisição (dd/mm/aaaa): ");
 
         return new Equipamentos(codigoDigitado, nome, categoria, fabricante, modelo, setor, data);
     }
