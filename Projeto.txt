@@ -1,183 +1,185 @@
-import service.EquipamentoService;
-import service.TecnicoService;
-import service.ManutencaoService;
-import exception.CodigoDuplicadoException;
-import java.util.Scanner;
+Situação de Aprendizagem – Sistema de 
+Controle de Equipamentos e 
+Manutenções Industriais 
+Contextualização 
+Você faz parte da equipe de desenvolvimento de uma empresa de médio porte do setor 
+industrial, especializada na fabricação de equipamentos eletroeletrônicos e soluções 
+tecnológicas para a indústria. 
+A empresa possui diversos equipamentos distribuídos entre seus setores produtivos, como 
+computadores industriais, impressoras, sensores, controladores e outros dispositivos 
+responsáveis pelo funcionamento da produção. Atualmente, o controle dessas informações 
+é realizado por meio de planilhas eletrônicas e registros manuais, dificultando a organização 
+dos dados, a localização de informações e o acompanhamento das manutenções 
+realizadas. 
+Além disso, o setor de manutenção enfrenta problemas como registros duplicados, perda de 
+informações, dificuldade para identificar equipamentos que estão em manutenção e 
+ausência de um histórico organizado das ocorrências. 
+Diante desse cenário, a direção da empresa solicitou o desenvolvimento de um sistema 
+computacional capaz de centralizar essas informações, automatizando o cadastro dos 
+equipamentos, dos técnicos responsáveis e das manutenções realizadas. 
+A solução deverá ser desenvolvida em Java, aplicando os princípios da Programação 
+Orientada a Objetos, tratamento de exceções e boas práticas de desenvolvimento, 
+garantindo um código organizado, legível e de fácil manutenção. 
+Desafio 
+Desenvolver um sistema em Java para gerenciamento de equipamentos industriais e 
+controle de manutenções. 
+O sistema deverá permitir o cadastro, consulta, alteração e exclusão das informações, além 
+de registrar as manutenções realizadas nos equipamentos. 
+Todo o desenvolvimento deverá seguir os conceitos estudados durante a disciplina, 
+utilizando programação orientada a objetos, modularização do código, tratamento de 
+exceções e estruturas de dados adequadas. 
+Requisitos Funcionais
 
-public class Principal {
+Módulo 1 – Gerenciamento de Equipamentos 
+O sistema deverá permitir o gerenciamento dos equipamentos utilizados na empresa. 
+Cada equipamento deverá possuir, no mínimo, os seguintes dados: 
+● Código; 
+● Nome; 
+● Categoria; 
+● Fabricante; 
+● Modelo; 
+● Setor onde está instalado; 
+● Data de instalação; 
+● Status (Operando, Em manutenção ou Inativo). 
+O sistema deverá permitir as seguintes operações: 
+● Cadastrar equipamento; 
+● Consultar equipamento pelo código; 
+● Alterar informações; 
+● Excluir equipamento; 
+● Listar todos os equipamentos cadastrados.
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+Módulo 2 – Gerenciamento de Técnicos 
+O sistema deverá permitir cadastrar os técnicos responsáveis pelas manutenções. 
+Cada técnico deverá possuir: 
+● Código; 
+● Nome; 
+● Matrícula; 
+● Setor; 
+● Telefone. 
+O sistema deverá permitir: 
+● Cadastrar técnico; 
+● Consultar técnico; 
+● Alterar informações; 
+● Excluir técnico; 
+● Listar todos os técnicos cadastrados.
 
-        EquipamentoService equipamentoService = new EquipamentoService();
-        TecnicoService tecnicoService = new TecnicoService();
-        ManutencaoService manutencaoService = new ManutencaoService(equipamentoService, tecnicoService);
+Módulo 3 – Controle de Manutenções 
+O sistema deverá permitir registrar todas as manutenções realizadas nos equipamentos.
+Cada manutenção deverá conter: 
+● Código da manutenção; 
+● Equipamento relacionado; 
+● Técnico responsável; 
+● Data de abertura; 
+● Data de encerramento; 
+● Tipo da manutenção (Preventiva ou Corretiva); 
+● Descrição do problema; 
+● Situação (Aberta, Em andamento ou Finalizada).
 
-        // Injeta a ManutencaoService nas outras duas, pra validar as regras 8 e 9
-        equipamentoService.setManutencaoService(manutencaoService);
-        tecnicoService.setManutencaoService(manutencaoService);
+O sistema deverá permitir: 
+● Registrar nova manutenção; 
+● Consultar manutenção; 
+● Alterar situação da manutenção; 
+● Finalizar manutenção; 
+● Listar todas as manutenções cadastradas.
 
-        int opcao = -1;
+Módulo 4 – Relatórios 
+O sistema deverá disponibilizar, no mínimo, os seguintes relatórios: 
+● Quantidade total de equipamentos cadastrados; 
+● Quantidade total de técnicos cadastrados; 
+● Equipamentos em manutenção; 
+● Equipamentos ativos; 
+● Equipamentos inativos; 
+● Quantidade de manutenções abertas; 
+● Quantidade de manutenções finalizadas; 
+● Quantidade de manutenções por equipamento.
 
-        do {
-            System.out.println("==============================================");
-            System.out.println("SISTEMA DE CONTROLE DE EQUIPAMENTOS");
-            System.out.println("==============================================");
-            System.out.println("1 - Equipamentos");
-            System.out.println("2 - Técnicos");
-            System.out.println("3 - Manutenções");
-            System.out.println("4 - Relatórios");
-            System.out.println("0 - Encerrar sistema");
-            System.out.print("Escolha uma opção: ");
+Regras de Negócio 
+O sistema deverá respeitar as seguintes regras:
+1. O código do equipamento deverá ser único.
 
-            try {
-                opcao = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Erro: Digite um número válido.");
-                continue;
-            }
+2. A matrícula do técnico deverá ser única.
 
-            switch (opcao) {
-                case 1:
-                    menuEquipamentos(sc, equipamentoService);
-                    break;
-                case 2:
-                    menuTecnicos(sc, tecnicoService);
-                    break;
-                case 3:
-                    menuManutencoes(sc, manutencaoService);
-                    break;
-                case 4:
-                    System.out.println("Relatórios em desenvolvimento...");
-                    break;
-                case 0:
-                    System.out.println("Encerrando o sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-                    break;
-            }
-        } while (opcao != 0);
-    }
+3. Não será permitido cadastrar equipamentos com campos obrigatórios vazios.
 
-    private static void menuEquipamentos(Scanner sc, EquipamentoService equipamentoService) {
-        System.out.println("==============================================");
-        System.out.println("                EQUIPAMENTOS");
-        System.out.println("==============================================");
-        System.out.println("1 - Cadastrar equipamento");
-        System.out.println("2 - Consultar equipamento");
-        System.out.println("3 - Alterar informações");
-        System.out.println("4 - Excluir equipamento");
-        System.out.println("5 - Listar equipamentos");
-        System.out.println("0 - Voltar ao menu principal");
-        System.out.print("Escolha uma opção: ");
-        int sub = Integer.parseInt(sc.nextLine());
+4. Não será permitido cadastrar técnicos com campos obrigatórios vazios.
 
-        switch (sub) {
-            case 1:
-                try {
-                    equipamentoService.cadastrar();
-                } catch (CodigoDuplicadoException e) {
-                    System.out.println("Erro: " + e.getMessage());
-                }
-                break;
-            case 2:
-                System.out.print("Código: ");
-                equipamentoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                equipamentoService.alterar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                equipamentoService.excluir(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                equipamentoService.listar();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opção inválida.");
-        }
-    }
+5. Não será permitido cadastrar uma manutenção para um equipamento inexistente.
 
-    private static void menuTecnicos(Scanner sc, TecnicoService tecnicoService) {
-        System.out.println("==============================================");
-        System.out.println("                TÉCNICOS");
-        System.out.println("==============================================");
-        System.out.println("1 - Cadastrar técnico");
-        System.out.println("2 - Consultar técnico");
-        System.out.println("3 - Alterar informações");
-        System.out.println("4 - Excluir técnico");
-        System.out.println("5 - Listar técnicos");
-        System.out.println("0 - Voltar");
-        System.out.print("Escolha: ");
-        int sub = Integer.parseInt(sc.nextLine());
+6. Não será permitido cadastrar uma manutenção para um técnico inexistente.
 
-        switch (sub) {
-            case 1:
-                tecnicoService.cadastrar();
-                break;
-            case 2:
-                System.out.print("Código: ");
-                tecnicoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                tecnicoService.alterar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                tecnicoService.excluir(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                tecnicoService.listar();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opção inválida.");
-        }
-    }
+7. Um equipamento que possuir uma manutenção aberta não poderá receber uma 
+nova manutenção até que a anterior seja finalizada.
 
-    private static void menuManutencoes(Scanner sc, ManutencaoService manutencaoService) {
-        System.out.println("==============================================");
-        System.out.println("                MANUTENÇÃO");
-        System.out.println("==============================================");
-        System.out.println("1 - Registrar manutenção");
-        System.out.println("2 - Consultar manutenção");
-        System.out.println("3 - Alterar Situação");
-        System.out.println("4 - Finalizar manutenção");
-        System.out.println("5 - Listar manutenção");
-        System.out.println("0 - Voltar ao menu principal");
-        System.out.print("Escolha uma opção: ");
-        int sub = Integer.parseInt(sc.nextLine());
+8. Não será permitido excluir um equipamento que possua manutenção em aberto.
 
-        switch (sub) {
-            case 1:
-                manutencaoService.registrar();
-                break;
-            case 2:
-                System.out.print("Código: ");
-                manutencaoService.consultar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 3:
-                System.out.print("Código: ");
-                manutencaoService.alterarSituacao(Integer.parseInt(sc.nextLine()));
-                break;
-            case 4:
-                System.out.print("Código: ");
-                manutencaoService.finalizar(Integer.parseInt(sc.nextLine()));
-                break;
-            case 5:
-                manutencaoService.listar();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opção inválida.");
-        }
-    }
-}
+9. Não será permitido excluir um técnico responsável por uma manutenção em aberto.
+
+10. Uma manutenção somente poderá ser finalizada uma única vez.
+
+11. Ao finalizar uma manutenção, a data de encerramento deverá ser registrada 
+automaticamente.
+
+12. Sempre que uma manutenção for aberta, o status do equipamento deverá ser 
+alterado para Em manutenção.
+
+13. Após a finalização da manutenção, o status do equipamento deverá voltar para 
+Operando.
+
+Requisitos Técnicos 
+Estruturas de Dados 
+O armazenamento das informações deverá ser realizado utilizando ArrayList.
+
+Poderão ser utilizados métodos como: 
+● add() 
+● get() 
+● set() 
+● remove() 
+● size() 
+
+Tratamento de Exceções
+O sistema deverá utilizar: 
+● try-catch; 
+● throw; 
+● throws; 
+● Pelo menos uma exceção personalizada criada pelo aluno.
+
+Exemplos: 
+● EquipamentoNaoEncontradoException; 
+● CodigoDuplicadoException; 
+● ManutencaoInvalidaException.
+
+Interface 
+O sistema deverá possuir interface em modo texto (console). 
+O menu principal deverá permitir o acesso a todos os módulos do sistema.
+
+Exemplo: 
+============================================== 
+SISTEMA DE CONTROLE DE EQUIPAMENTOS 
+============================================== 
+1 - Equipamentos 
+2 - Técnicos 
+3 - Manutenções 
+4 - Relatórios 
+0 - Encerrar Sistema 
+Escolha uma opção:
+
+Estrutura Recomendada 
+A organização do projeto deverá possuir, preferencialmente, a seguinte estrutura: 
+src 
+│ 
+├── model 
+│     ├── Equipamento.java 
+│     ├── Tecnico.java 
+│     ├── Manutencao.java 
+│ 
+├── exception 
+│     ├── CodigoDuplicadoException.java 
+│ 
+├── service 
+│     ├── EquipamentoService.java 
+│     ├── TecnicoService.java 
+│     ├── ManutencaoService.java 
+│ 
+├── util 
+│ 
+└── Principal.java 

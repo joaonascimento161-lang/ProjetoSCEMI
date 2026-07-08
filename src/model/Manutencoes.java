@@ -1,6 +1,8 @@
 package model;
 
 import static util.Entrada.sc;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Manutencoes {
     private int codigoManutencao;
@@ -179,8 +181,7 @@ public class Manutencoes {
             return;
         }
         this.situacao = FINALIZADA;
-        System.out.print("Digite a Data de Encerramento (dd/mm/aaaa): ");
-        this.dataEncerramento = sc.nextLine().trim();
-        System.out.println("Manutenção finalizada com sucesso!");
+        this.dataEncerramento = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.println("Manutenção finalizada com sucesso! Data da finalização: " + this.dataEncerramento);
     }
 }
