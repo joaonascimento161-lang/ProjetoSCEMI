@@ -1,6 +1,7 @@
 package model;
 
 import static util.Entrada.sc;
+import java.time.LocalTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -129,14 +130,14 @@ public class Manutencoes {
             }
         }
 
-        String dataA = lerCampoObrigatorio("Data de Abertura (dd/mm/aaaa): ");
+        String dataM = lerCampoObrigatorio("Data de Abertura [dd/mm/aaaa HH:mm]: ");
 
         System.out.print("Tipo (1-Preventiva / 2-Corretiva): ");
         String tipoManut = sc.nextLine().trim().equals("1") ? "Preventiva" : "Corretiva";
 
         String desc = lerCampoObrigatorio("Descrição do Problema: ");
 
-        return new Manutencoes(codM, codE, codT, dataA, tipoManut, desc);
+        return new Manutencoes(codM, codE, codT, dataM, tipoManut, desc);
     }
 
     public void exibirInformacoes() {
@@ -182,6 +183,8 @@ public class Manutencoes {
         }
         this.situacao = FINALIZADA;
         this.dataEncerramento = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalTime agora = LocalTime.now();
+        this.dataEncerramento += " " + agora.format(DateTimeFormatter.ofPattern("HH:mm"));
         System.out.println("Manutenção finalizada com sucesso! Data da finalização: " + this.dataEncerramento);
     }
 }

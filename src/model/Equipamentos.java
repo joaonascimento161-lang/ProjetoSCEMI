@@ -1,6 +1,9 @@
 package model;
 
 import exception.CodigoDuplicadoException;
+
+import java.time.LocalDateTime;
+
 import static util.Entrada.sc;
 
 public class Equipamentos {
@@ -101,7 +104,7 @@ public class Equipamentos {
         String fabricante = lerCampoObrigatorio("Digite o fabricante: ");
         String modelo = lerCampoObrigatorio("Digite o modelo: ");
         String setor = lerCampoObrigatorio("Digite o setor: ");
-        String data = lerCampoObrigatorio("Digite a data da instalação/aquisição (dd/mm/aaaa): ");
+        String data = lerCampoObrigatorio("Digite a data da instalação/aquisição [dd/mm/aaaa HH:mm]: ");
 
         return new Equipamentos(codigoDigitado, nome, categoria, fabricante, modelo, setor, data);
     }
@@ -159,7 +162,7 @@ public class Equipamentos {
                     this.setor = lerCampoObrigatorio("Novo setor: ");
                     break;
                 case 6:
-                    this.data = lerCampoObrigatorio("Nova data: ");
+                    this.data = lerCampoObrigatorio("Nova data [dd/mm/aaaa HH:mm]: ");
                     break;
                 case 0:
                     return;
