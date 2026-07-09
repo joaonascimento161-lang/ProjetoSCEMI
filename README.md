@@ -130,8 +130,8 @@ Uma manutenção finalizada não pode ter sua situação alterada novamente.
 
 ## ✍️ Status do projeto
 
-🚧 Em testes — Verificando todas as funcionalidades para evitar bugs do Projeto.
+✅ Testado e finalizado: Regras de negócio funcionando corretamente, bugs e erros resolvidos.
 
-Autor
+## Autor
 
-João Nascimento
+*João Nascimento*
