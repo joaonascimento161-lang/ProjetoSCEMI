@@ -177,7 +177,7 @@ public class Manutencoes {
 
     public void finalizarManutencao() {
         if (this.situacao.equals(FINALIZADA)) {
-            System.out.println("Erro: esta manutenção já foi finalizada anteriormente.");
+            System.out.println("Erro: esta manutenção já foi finalizada anteriormente. ");
             return;
         }
         this.situacao = FINALIZADA;
