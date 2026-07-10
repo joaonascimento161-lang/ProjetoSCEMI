@@ -9,6 +9,7 @@ public class TecnicoService {
     private int total = 0;
     private ManutencaoService manutencaoService;
 
+    // Setter para injetar a dependência do ManutencaoService
     public void setManutencaoService(ManutencaoService manutencaoService) {
         this.manutencaoService = manutencaoService;
     }
@@ -16,6 +17,7 @@ public class TecnicoService {
     public Tecnicos[] getArray() { return tecnicos; }
     public int getTotal() { return total; }
 
+    // Método para cadastrar um novo técnico, garantindo que o limite de técnicos não seja excedido.
     public void cadastrar() {
         if (total >= tecnicos.length) {
             System.out.println("Limite de técnicos atingido.");
@@ -26,6 +28,7 @@ public class TecnicoService {
         System.out.println("Técnico cadastrado!");
     }
 
+    // Método para buscar um técnico por código, lançando uma exceção se não encontrado.
     public Tecnicos buscarPorCodigo(int codigo) throws TecnicoNaoEncontradoException {
         for (int i = 0; i < total; i++) {
             if (tecnicos[i].getCodigo() == codigo) {
@@ -35,14 +38,17 @@ public class TecnicoService {
         throw new TecnicoNaoEncontradoException("Técnico com código " + codigo + " não encontrado.");
     }
 
+    // Método para consultar as informações de um técnico por código.
     public void consultar(int codigo) throws TecnicoNaoEncontradoException {
         buscarPorCodigo(codigo).exibirInformacoes();
     }
 
+    // Método para alterar as informações de um técnico por código.
     public void alterar(int codigo) throws TecnicoNaoEncontradoException {
         buscarPorCodigo(codigo).alterarInformacoes();
     }
 
+    // Método para excluir um técnico por código, verificando se há manutenções em aberto.
     public void excluir(int codigo) throws TecnicoNaoEncontradoException, ManutencaoInvalidaException {
         Tecnicos t = buscarPorCodigo(codigo);
 
@@ -54,6 +60,7 @@ public class TecnicoService {
         t.excluir();
     }
 
+    // Método para listar todos os técnicos cadastrados.
     public void listar() {
         for (int i = 0; i < total; i++) {
             tecnicos[i].exibirInformacoes();

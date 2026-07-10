@@ -19,6 +19,7 @@ public class Tecnicos {
         this.status = true;
     }
 
+    // Getters e Setters
     public int getCodigo() { return codigo; }
     public String getNome() { return nome; }
     public String getMatricula() { return matricula; }
@@ -27,6 +28,7 @@ public class Tecnicos {
     public boolean isStatus() { return status; }
     public void setStatus(boolean status) { this.status = status; }
 
+    // Método para ler campos obrigatórios do técnico, garantindo que não fiquem vazios.
     private static String lerCampoObrigatorio(String mensagem) {
         String valor;
         do {
@@ -39,6 +41,7 @@ public class Tecnicos {
         return valor;
     }
 
+    // Método para cadastrar um novo técnico, garantindo que o código e a matrícula sejam únicos.
     public static Tecnicos cadastrarTecnico(Tecnicos[] tecnicos) {
         int cod = 0;
         System.out.println("\n--- CADASTRO DE TÉCNICO ---");
@@ -90,6 +93,7 @@ public class Tecnicos {
         return new Tecnicos(cod, nome, matricula, setor, telefone);
     }
 
+    // Método para exibir as informações do técnico, incluindo o status de exclusão.
     public void exibirInformacoes() {
         if (!status) {
             System.out.println("Técnico [Código: " + codigo + "] - EXCLUÍDO");
@@ -103,6 +107,7 @@ public class Tecnicos {
         System.out.println("Telefone:  " + telefone);
     }
 
+    // Método para alterar as informações do técnico, permitindo a alteração de nome, matrícula, setor e telefone.
     public void alterarInformacoes() {
         System.out.println("\n--- ALTERAR TÉCNICO (Código: " + codigo + ") ---");
         System.out.println("1 - Nome (" + nome + ")");
@@ -128,6 +133,7 @@ public class Tecnicos {
         }
     }
 
+    // Método para excluir o técnico, alterando seu status para false.
     public void excluir() {
         this.status = false;
         System.out.println("Técnico código " + codigo + " excluído.");

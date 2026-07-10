@@ -22,6 +22,7 @@ public class Principal {
         equipamentoService.setManutencaoService(manutencaoService);
         tecnicoService.setManutencaoService(manutencaoService);
 
+        // Menu principal do sistema
         int opcao = -1;
 
         do {
@@ -65,6 +66,7 @@ public class Principal {
         } while (opcao != 0);
     }
 
+    // Submenu para gerenciar equipamentos
     private static void menuEquipamentos(Scanner sc, EquipamentoService equipamentoService) {
         System.out.println("==============================================");
         System.out.println("                EQUIPAMENTOS");
@@ -108,6 +110,7 @@ public class Principal {
         }
     }
 
+    // Submenu para gerenciar técnicos
     private static void menuTecnicos(Scanner sc, TecnicoService tecnicoService) {
         System.out.println("==============================================");
         System.out.println("                TÉCNICOS");
@@ -151,6 +154,7 @@ public class Principal {
         }
     }
 
+    // Submenu para gerenciar manutenções
     private static void menuManutencoes(Scanner sc, ManutencaoService manutencaoService) {
         System.out.println("==============================================");
         System.out.println("                MANUTENÇÃO");
@@ -194,6 +198,7 @@ public class Principal {
         }
     }
 
+    // Submenu para gerar relatórios
     private static void menuRelatorios(Scanner sc, RelatorioService relatorioService) {
         System.out.println("==============================================");
         System.out.println("                RELATÓRIOS");

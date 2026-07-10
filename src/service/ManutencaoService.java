@@ -12,6 +12,7 @@ public class ManutencaoService {
     private final EquipamentoService equipamentoService;
     private final TecnicoService tecnicoService;
 
+    // Construtor que recebe as dependências de EquipamentoService e TecnicoService
     public ManutencaoService(EquipamentoService equipamentoService, TecnicoService tecnicoService) {
         this.equipamentoService = equipamentoService;
         this.tecnicoService = tecnicoService;
@@ -20,6 +21,7 @@ public class ManutencaoService {
     public Manutencoes[] getArray() { return manutencoes; }
     public int getTotal() { return total; }
 
+    // Método para registrar uma nova manutenção, garantindo que o limite de manutenções não seja excedido.
     public void registrar() throws EquipamentoNaoEncontradoException {
         if (total >= manutencoes.length) {
             System.out.println("Limite de manutenções atingido.");
@@ -36,6 +38,7 @@ public class ManutencaoService {
         System.out.println("Manutenção registrada!");
     }
 
+    // Método para buscar uma manutenção por código.
     public Manutencoes buscarPorCodigo(int codigo) throws ManutencaoInvalidaException {
         for (int i = 0; i < total; i++) {
             if (manutencoes[i].getCodigoManutencao() == codigo) {
@@ -45,10 +48,12 @@ public class ManutencaoService {
         throw new ManutencaoInvalidaException("Manutenção com código " + codigo + " não encontrada.");
     }
 
+    // Método para consultar as informações de uma manutenção por código.
     public void consultar(int codigo) throws ManutencaoInvalidaException {
         buscarPorCodigo(codigo).exibirInformacoes();
     }
 
+    // Método para alterar a situação de uma manutenção por código.
     public void alterarSituacao(int codigo) throws ManutencaoInvalidaException, EquipamentoNaoEncontradoException {
         Manutencoes m = buscarPorCodigo(codigo);
         m.alterarSituacao();
@@ -58,6 +63,7 @@ public class ManutencaoService {
         }
     }
 
+    // Método para finalizar uma manutenção por código.
     public void finalizar(int codigo) throws ManutencaoInvalidaException, EquipamentoNaoEncontradoException {
         Manutencoes m = buscarPorCodigo(codigo);
         m.finalizarManutencao();
@@ -67,12 +73,14 @@ public class ManutencaoService {
         }
     }
 
+    // Método para listar todas as manutenções cadastradas.
     public void listar() {
         for (int i = 0; i < total; i++) {
             manutencoes[i].exibirInformacoes();
         }
     }
 
+    // Método para verificar se há manutenções em aberto para um equipamento.
     public boolean possuiManutencaoAbertaParaEquipamento(int codigoEquipamento) {
         for (int i = 0; i < total; i++) {
             if (manutencoes[i].getCodigoEquipamento() == codigoEquipamento
@@ -83,6 +91,7 @@ public class ManutencaoService {
         return false;
     }
 
+    // Método para verificar se há manutenções em aberto para um técnico.
     public boolean possuiManutencaoAbertaParaTecnico(int codigoTecnico) {
         for (int i = 0; i < total; i++) {
             if (manutencoes[i].getCodigoTecnico() == codigoTecnico

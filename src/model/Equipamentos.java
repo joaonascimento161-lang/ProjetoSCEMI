@@ -31,6 +31,7 @@ public class Equipamentos {
         this.status = OPERANDO;
     }
 
+    //getters e setters
     public int getCodigo() { return codigo; }
     public void setCodigo(int codigo) { this.codigo = codigo; }
 
@@ -61,6 +62,7 @@ public class Equipamentos {
         this.status = status;
     }
 
+    // Método para ler campos obrigatórios de equipamentos, garantindo que não fiquem vazios.
     private static String lerCampoObrigatorio(String mensagem) {
         String valor;
         do {
@@ -72,7 +74,7 @@ public class Equipamentos {
         } while (valor.isEmpty());
         return valor;
     }
-
+    // Método para cadastrar um novo equipamento
     public static Equipamentos cadastrarEquipamento(Equipamentos[] equipamentos) throws CodigoDuplicadoException {
         int codigoDigitado = 0;
 
@@ -108,14 +110,14 @@ public class Equipamentos {
 
         return new Equipamentos(codigoDigitado, nome, categoria, fabricante, modelo, setor, data);
     }
-
+    // Método para consultar um equipamento pelo código.
     public void consultarEquipamento(int codigoConsultado) {
         if (codigoConsultado == this.codigo) {
             System.out.println("\n--- CONSULTA DE EQUIPAMENTO (Código: " + this.codigo + ") ---");
             exibirInformacoes();
         }
     }
-
+    // Método para exibir as informações do equipamento.
     public void exibirInformacoes() {
         if (this.status.equals(INATIVO)) {
             System.out.println("Equipamento [Código: " + this.codigo + "] está marcado como EXCLUÍDO.");
@@ -131,7 +133,7 @@ public class Equipamentos {
         System.out.println("Data:       " + this.data);
         System.out.println("Status:     " + this.status);
     }
-
+    // Método para alterar informações do equipamento.
     public void alterarInformacoes() {
         System.out.println("\n--- ALTERAR INFORMAÇÕES (Código: " + this.codigo + ") ---");
         System.out.println("1 - Nome (" + this.nome + ")");
@@ -175,7 +177,7 @@ public class Equipamentos {
             System.out.println("Erro: Digite um número válido.");
         }
     }
-
+    // Método para excluir o equipamento (marcar como inativo).
     public void excluir() {
         this.status = INATIVO;
         System.out.println("Equipamento código " + this.codigo + " excluído com sucesso!");

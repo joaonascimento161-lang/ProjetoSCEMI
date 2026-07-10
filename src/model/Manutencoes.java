@@ -18,7 +18,6 @@ public class Manutencoes {
     public static final String ABERTA = "Aberta";
     public static final String EM_ANDAMENTO = "Em andamento";
     public static final String FINALIZADA = "Finalizada";
-
     public Manutencoes(int codigoManutencao, int codigoEquipamento, int codigoTecnico, String dataAbertura, String tipo, String descricao) {
         this.codigoManutencao = codigoManutencao;
         this.codigoEquipamento = codigoEquipamento;
@@ -30,11 +29,13 @@ public class Manutencoes {
         this.dataEncerramento = "---";
     }
 
+    // Getters
     public int getCodigoManutencao() { return codigoManutencao; }
     public int getCodigoEquipamento() { return codigoEquipamento; }
     public int getCodigoTecnico() { return codigoTecnico; }
     public String getSituacao() { return situacao; }
 
+    // Método para ler campos obrigatórios de manutenção, garantindo que não fiquem vazios.
     private static String lerCampoObrigatorio(String mensagem) {
         String valor;
         do {
@@ -47,6 +48,7 @@ public class Manutencoes {
         return valor;
     }
 
+    // Método para registrar uma nova manutenção, garantindo que o código seja único e que o equipamento e técnico existam.
     public static Manutencoes registrarManutencao(Manutencoes[] manutencoes, Equipamentos[] equipamentos, Tecnicos[] tecnicos) {
         int codM = 0;
         System.out.println("\n--- REGISTRAR NOVA MANUTENÇÃO ---");
@@ -140,6 +142,7 @@ public class Manutencoes {
         return new Manutencoes(codM, codE, codT, dataM, tipoManut, desc);
     }
 
+    // Método para exibir as informações da manutenção.
     public void exibirInformacoes() {
         System.out.println("----------------------------------------------");
         System.out.println("CÓD. MANUTENÇÃO: " + codigoManutencao);
@@ -152,6 +155,7 @@ public class Manutencoes {
         System.out.println("DESCRIÇÃO:       " + descricao);
     }
 
+    // Método para alterar a situação da manutenção, permitindo apenas alterações se a manutenção não estiver finalizada.
     public void alterarSituacao() {
         if (this.situacao.equals(FINALIZADA)) {
             System.out.println("Erro: esta manutenção já foi finalizada e não pode ser alterada.");
@@ -176,6 +180,7 @@ public class Manutencoes {
         }
     }
 
+    // Método para finalizar a manutenção, registrando a data e hora de encerramento.
     public void finalizarManutencao() {
         if (this.situacao.equals(FINALIZADA)) {
             System.out.println("Erro: esta manutenção já foi finalizada anteriormente. ");

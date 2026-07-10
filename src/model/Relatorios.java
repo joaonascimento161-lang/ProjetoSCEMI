@@ -5,6 +5,7 @@ public class Relatorios {
     private Relatorios() {
     }
 
+    // Método para exibir o relatório geral do sistema
     public static void exibirRelatorioGeral(Equipamentos[] equipamentos, int totalEquipamentos,
                                              Tecnicos[] tecnicos, int totalTecnicos,
                                              Manutencoes[] manutencoes, int totalManutencoes) {
@@ -22,6 +23,7 @@ public class Relatorios {
         System.out.println("=================================");
     }
 
+    // Método para contar equipamentos por status
     private static int contarEquipamentosPorStatus(Equipamentos[] equipamentos, int total, String status) {
         int contador = 0;
         for (int i = 0; i < total; i++) {
@@ -32,6 +34,7 @@ public class Relatorios {
         return contador;
     }
 
+    // Método para contar manutenções abertas
     private static int contarManutencoesAbertas(Manutencoes[] manutencoes, int total) {
         int contador = 0;
         for (int i = 0; i < total; i++) {
@@ -42,6 +45,7 @@ public class Relatorios {
         return contador;
     }
 
+    // Método para contar manutenções finalizadas
     private static int contarManutencoesFinalizadas(Manutencoes[] manutencoes, int total) {
         int contador = 0;
         for (int i = 0; i < total; i++) {
@@ -52,6 +56,7 @@ public class Relatorios {
         return contador;
     }
 
+    // Método para contar manutenções por equipamento
     public static int contarManutencoesPorEquipamento(int codigoEquipamento, Manutencoes[] manutencoes, int total) {
         int contador = 0;
         for (int i = 0; i < total; i++) {
@@ -62,6 +67,7 @@ public class Relatorios {
         return contador;
     }
 
+    // Método para exibir menutenções por equipamento
     public static void exibirManutencoesPorEquipamento(int codigoEquipamento, Manutencoes[] manutencoes, int total) {
         int qtd = contarManutencoesPorEquipamento(codigoEquipamento, manutencoes, total);
         System.out.println("Equipamento " + codigoEquipamento + " possui " + qtd + " manutenção(ões) registrada(s).");

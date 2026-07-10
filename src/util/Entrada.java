@@ -8,6 +8,6 @@ public class Entrada {
     public static final Scanner sc = new Scanner(System.in);
 
     private Entrada() {
-        // Classe utilitária: não deve ser instanciada.
+        // Construtor privado para evitar instâncias
     }
 }
