@@ -130,7 +130,7 @@ Uma manutenção finalizada não pode ter sua situação alterada novamente.
 
 ## ✍️ Status do projeto
 
-✅ Testado e finalizado: Regras de negócio funcionando corretamente, bugs e erros resolvidos.
+✅ Testado e finalizado: Regras de negócio funcionando corretamente, bugs e erros resolvidos e código com comentários simple para melhor entendimento.
 
 ## Autor
 
